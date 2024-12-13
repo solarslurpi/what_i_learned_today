@@ -1,6 +1,6 @@
-import marimo
+sqimport marimo
 
-__generated_with = "0.9.30"
+__generated_with = "0.9.32"
 app = marimo.App(width="medium")
 
 
@@ -75,7 +75,7 @@ def __(mo):
     mo.md(
         r"""
         # Install the SDK
-        The first thing to do is to install the sdk: `uv pip install mcp`.  
+        The first thing to do is to install the sdk: `uv pip install mcp`.
         """
     )
     return
@@ -89,7 +89,7 @@ def __(mo):
         Next, we configure server parameters.  When setting up the server parameters, the transport protocol is specified.  There are two options for transport protocols: 
 
             1. stdio- Standard input/output.  This is the simple text-based protocol used throughout the history of computing from Unix pipes to Python's `print()` and `input()` functions. It is ideal for when all processes are running on the same machine.
-        
+
             2. HTTP with SSE - HTTP server with Server-Sent Events.  This method is commonly used by web applications. HTTP `POST` are used for client-to-server messages. SSE (Server-Sent Events) are used for server-to-client messages.
         """
     )
