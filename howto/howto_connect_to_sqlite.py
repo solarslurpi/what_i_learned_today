@@ -10,15 +10,17 @@
 
 import marimo
 
-__generated_with = "0.9.34"
+__generated_with = "0.10.1"
 app = marimo.App(width="medium")
 
 
 @app.cell(hide_code=True)
-def __(mo):
+def _(mo):
     mo.md(
         r"""
         # Connect to SQLite
+
+        _Note: I modified this to better understand_
 
         You can use marimo's SQL cells to read from and write to SQLite databases.
 
@@ -31,37 +33,40 @@ def __(mo):
 
 
 @app.cell(hide_code=True)
-def __():
+def _():
     import marimo as mo
     return (mo,)
 
 
 @app.cell
-def __(INFORMATION_SCHEMA, TABLES, mo):
+def _(INFORMATION_SCHEMA, TABLES, mo):
     _df = mo.sql(
         f"""
         -- Boilerplate: detach the database so this cell works when you re-run it
         DETACH DATABASE IF EXISTS snifferdata;
 
         -- Attach the database; omit READ_ONLY if you want to write to the database.
-        ATTACH 'sniffer_data.db' as snifferdata (TYPE SQLITE, READ_ONLY);
+        ATTACH '../data/sniffer_data.db' as snifferdata (TYPE SQLITE, READ_ONLY);
 
         -- This query lists all the tables in the Chinook database
         SELECT table_name FROM INFORMATION_SCHEMA.TABLES;
-
         """
     )
     return (snifferdata,)
 
 
 @app.cell
-def __(mo, readings, snifferdata):
-    df = mo.sql("SELECT * from snifferdata.readings ")
+def _(mo, readings, snifferdata):
+    df = mo.sql(
+        """
+        SELECT * from snifferdata.readings
+        """
+    )
     return (df,)
 
 
 @app.cell
-def __(df):
+def _(df):
     # Transform data to long format for just temperature and humidity
     df_long = df.melt(
         id_vars=['timestamp'],
@@ -73,7 +78,7 @@ def __(df):
 
 
 @app.cell
-def __(df, mo):
+def _(df, mo):
     import altair as alt
     # Create temperature chart
     temp_chart = mo.ui.altair_chart(
@@ -104,7 +109,7 @@ def __(df, mo):
         temp_chart,humidity_chart
         # We'll add more charts here later
     ])
-        
+
     layout
     return alt, humidity_chart, layout, temp_chart
 
